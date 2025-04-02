@@ -5,6 +5,7 @@ FONT = ("Arial", 18, "normal")
 class Score(Turtle):
     def __init__(self):
         super().__init__()
+        self.high_score = 0
         self.hit_count = 0
         self.hideturtle()
         self.color("white")
@@ -13,11 +14,14 @@ class Score(Turtle):
         self.update_score()  # Initial display of score
 
     def update_score(self):
-        self.write(f"Score: {self.hit_count}", align=ALIGNMENT, font=FONT)
+        self.clear()
+        self.write(f"Score: {self.hit_count} High Score: {self.high_score}", align=ALIGNMENT, font=FONT)
 
-    def game_over(self):
-        self.goto(0, 0)
-        self.write("GAME OVER", align=ALIGNMENT, font=FONT)
+    def reset(self):
+        if self.hit_count > self.high_score:
+            self.high_score = self.hit_count
+        self.score = 0
+        self.update_score()
 
     def increment(self):
         self.hit_count += 1
